@@ -60,6 +60,6 @@ crashlytics-build.properties
 
 # Custom Ignores
 
-Assests/Graphics/
-Assests/Audio/
-Assests/Animation/
+Assets/Graphics/
+Assets/Audio/
+Assets/Animation/
