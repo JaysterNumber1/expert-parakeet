@@ -46,7 +46,7 @@ public class CameraFollow : MonoBehaviour {
     private Vector3 calculateThreshold()
     {
         Rect aspect = Camera.main.pixelRect;
-        Vector2 t = new Vector2(Camera.main.orthographicSize = (16 * 3 / 4), (9 * 3 / 4));
+        Vector2 t = new Vector2(Camera.main.orthographicSize = (aspect.width*2) / (aspect.height*2), Camera.main.orthographicSize);
         t.x -= followOffset.x;
         t.y -= followOffset.y;
         return t;
