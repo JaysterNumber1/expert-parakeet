@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;
     public Vector2 direction;
+    public float speedMultiplier = 1f;
    // private bool facingRight = true;
 
     [Header("Components")]
@@ -30,15 +31,24 @@ public class Player : MonoBehaviour
     }
     private void keysPressed()
     {
+        direction.x = 0;
+        speedMultiplier = 1f;
         if (Keyboard.current.dKey.isPressed)
         {
             direction.x = 1;
         }
+           
         if (Keyboard.current.aKey.isPressed)
         {
             direction.x = -1;
         }
+        if (Keyboard.current.leftShiftKey.isPressed)
+        {
+            speedMultiplier = 20f;
+        }
+        
     }
+
 
     public void move(InputActionReference action)
     {
@@ -53,9 +63,9 @@ public class Player : MonoBehaviour
     }
     void moveCharacter(float horizontal)
     {
-        rb.AddForce(Vector2.right * horizontal * moveSpeed);
+        rb.AddForce(Vector2.right * horizontal * moveSpeed*speedMultiplier);
 
-        if(Mathf.Abs(rb.velocity.x) > maxSpeed)
+        if(Mathf.Abs(rb.velocity.x) > maxSpeed*speedMultiplier)
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
@@ -66,7 +76,7 @@ public class Player : MonoBehaviour
     void modifyPhysics()
     {
         bool changingDirection = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
-        if(Mathf.Abs(direction.x) < 0.9 || changingDirection)
+        if(Mathf.Abs(direction.x) == 0 || changingDirection)
         {
             rb.drag = linearDrag;
         }
