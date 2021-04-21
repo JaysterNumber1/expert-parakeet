@@ -51,9 +51,10 @@ public class Player : MonoBehaviour
     }
 
 
-    public void move(InputActionReference action)
+    public void move(InputAction.CallbackContext context)
     {
-        Debug.Log("Move");
+        direction.x = context.ReadValue<Vector2>().x;
+        direction.y = context.ReadValue<Vector2>().y;
     }
        
     private void FixedUpdate()
@@ -96,5 +97,5 @@ public class Player : MonoBehaviour
     }
 
     */
-    //I am 7:50 in the movement video by Press Start for mariolike movement
+    
 }
