@@ -341,7 +341,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.7777778
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followObject: {fileID: 902617303}
-  followOffset: {x: 0, y: 0}
+  followOffset: {x: 18, y: 10}
   speed: 3
 --- !u!1 &902617303
 GameObject:
@@ -421,8 +421,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   direction: {x: 0, y: 0}
+  sprintSpeedMultiplier: 1
   rb: {fileID: 902617305}
-  animator: {fileID: 0}
+  maxSpeed: 7
+  linearDrag: 15
 --- !u!50 &902617305
 Rigidbody2D:
   serializedVersion: 4
@@ -687,7 +689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105366727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34, y: -10.5, z: 0}
+  m_LocalPosition: {x: 0, y: -10.5, z: 0}
   m_LocalScale: {x: 100, y: 20, z: 2}
   m_Children: []
   m_Father: {fileID: 0}

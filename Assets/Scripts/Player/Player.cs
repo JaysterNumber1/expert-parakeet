@@ -10,9 +10,10 @@ public class Player : MonoBehaviour
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;
     public Vector2 direction;
-    public float speedMultiplier = 1f;
+   
+    public float sprintSpeedMultiplier = 1f;
    // private bool facingRight = true;
-
+  
     [Header("Components")]
     public Rigidbody2D rb;
     // public Animator animator;
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
     private void keysPressed()
     {
         direction.x = 0;
-        speedMultiplier = 1f;
+        sprintSpeedMultiplier = 1f;
         if (Keyboard.current.dKey.isPressed)
         {
             direction.x = 1;
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
         }
         if (Keyboard.current.leftShiftKey.isPressed)
         {
-            speedMultiplier = 20f;
+            sprintSpeedMultiplier = 1.5f;
         }
         
     }
@@ -63,9 +64,9 @@ public class Player : MonoBehaviour
     }
     void moveCharacter(float horizontal)
     {
-        rb.AddForce(Vector2.right * horizontal * moveSpeed*speedMultiplier);
+        rb.AddForce(Vector2.right * horizontal * moveSpeed * sprintSpeedMultiplier);
 
-        if(Mathf.Abs(rb.velocity.x) > maxSpeed*speedMultiplier)
+        if(Mathf.Abs(rb.velocity.x) > maxSpeed * sprintSpeedMultiplier)
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }

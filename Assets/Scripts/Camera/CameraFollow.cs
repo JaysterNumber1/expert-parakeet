@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void fixedUpdate()
+    void FixedUpdate()
     {
         Vector2 follow = followObject.transform.position;
         float xDifference = Vector2.Distance(Vector2.right * transform.position.x, Vector2.right * follow.x);
@@ -40,15 +40,16 @@ public class CameraFollow : MonoBehaviour {
         {
             newPosition.y = follow.y;
         }
-        float moveSpeed = rb.velocity.magnitude > speed ? rb.velocity.magnitude : speed;
-        transform.position = Vector3.MoveTowards(transform.position, newPosition, speed = Time.deltaTime);
+        
+        float fasterSpeed = rb.velocity.magnitude > speed ? rb.velocity.magnitude : speed;
+        transform.position = Vector3.MoveTowards(transform.position, newPosition, fasterSpeed * Time.deltaTime);
     }
     private Vector3 calculateThreshold()
     {
         Rect aspect = Camera.main.pixelRect;
-        Vector2 t = new Vector2(Camera.main.orthographicSize = (16*3/4), (9*3/4));
-        t.x -= followOffset.x;
-        t.y -= followOffset.y;
+        Vector2 t = new Vector2(Camera.main.orthographicSize * aspect.width / aspect.height, Camera.main.orthographicSize);
+        t.x -= followOffset.x ;
+        t.y -= followOffset.y ;
         return t;
 
     }
@@ -57,7 +58,7 @@ public class CameraFollow : MonoBehaviour {
     {
         Gizmos.color = Color.blue;
         Vector2 border = calculateThreshold();
-        Gizmos.DrawWireCube(transform.position, new Vector3(border.x * 2, border.y * 2, 1));
+        Gizmos.DrawWireCube(transform.position, new Vector3(border.x*2 , border.y*2 , 1));
 
     }
 }
