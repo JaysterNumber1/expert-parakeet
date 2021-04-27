@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        
     }
    
     void modifyPhysics()
@@ -116,6 +117,7 @@ public class Player : MonoBehaviour
         bool changingDirection = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
         if (isGrounded)
         {
+            rb.gravityScale = gravity;
             if (Mathf.Abs(direction.x) == 0 || changingDirection)
             {
                 rb.drag = linearDrag;
@@ -123,7 +125,9 @@ public class Player : MonoBehaviour
             else
             {
                 rb.drag = 0;
+                
             }
+            
         }
         else
         {
