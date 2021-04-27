@@ -31,17 +31,30 @@ public class Player : MonoBehaviour
 
 
     [Header("Collisions")]
-    public bool onGround = false;
+    public bool isGrounded = false;
     public float groundLength = 0.6f;
+    
 
 
   
     private void Update()
     {
-        onGround = Physics.Raycast(transform.position, Vector2.down, groundLength, groundLayer);
-       
-        
+        GroundCheck();
 
+
+    }
+
+    private void GroundCheck()
+    {
+       
+        if (Physics2D.Raycast(transform.position, Vector2.down, groundLength, groundLayer))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
     private void keysPressed()
     {
@@ -60,7 +73,7 @@ public class Player : MonoBehaviour
         {
             sprintSpeedMultiplier = 1.5f;
         }
-        if (Keyboard.current.spaceKey.isPressed && onGround)
+        if (Keyboard.current.spaceKey.isPressed && isGrounded)
         {
             Jump();
         }
@@ -100,7 +113,7 @@ public class Player : MonoBehaviour
     void modifyPhysics()
     {
         bool changingDirection = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
-        if (onGround)
+        if (isGrounded)
         {
             if (Mathf.Abs(direction.x) == 0 || changingDirection)
             {
