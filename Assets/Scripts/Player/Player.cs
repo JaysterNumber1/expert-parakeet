@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
    
     public float sprintSpeedMultiplier = 1f;
     // private bool facingRight = true;
+   
 
     [Header("Vertical Movement")]
     public float jumpSpeed = 15f;
@@ -82,6 +83,11 @@ public class Player : MonoBehaviour
     }
 
 
+    public void LateUpdate()
+    {
+      
+    }
+
     public void move(InputAction.CallbackContext context)
     {
         direction.x = context.ReadValue<Vector2>().x;
@@ -102,7 +108,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
-
+       
         //animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
     }
     void Jump()
@@ -111,12 +117,15 @@ public class Player : MonoBehaviour
         rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
         
     }
-   
+
     void modifyPhysics()
     {
+        Debug.Log(rb.velocity.x);
+        //Debug.Log(rb.velocity.y);
         bool changingDirection = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
         if (isGrounded)
         {
+
             rb.gravityScale = gravity;
             if (Mathf.Abs(direction.x) == 0 || changingDirection)
             {
@@ -125,21 +134,26 @@ public class Player : MonoBehaviour
             else
             {
                 rb.drag = 0;
-                
+
             }
-            
+
         }
         else
         {
+
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
+
             if (rb.velocity.y < 0)
             {
                 rb.gravityScale = gravity * fallMultiplier;
-            } else if(rb.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
+            }
+            else if (rb.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
             {
                 rb.gravityScale = gravity * (fallMultiplier / 2);
+
             }
+            
         }
     }
     /* if((horizontal > 0 && !facingRight) || (horizontal< 0 && facingRight)){
