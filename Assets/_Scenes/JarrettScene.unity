@@ -437,6 +437,8 @@ MonoBehaviour:
   isGrounded: 0
   groundLength: 0.6
   colliderOffset: {x: 0.5, y: 0, z: 0}
+  player: {fileID: 0}
+  floor: {fileID: 0}
 --- !u!50 &902617305
 Rigidbody2D:
   serializedVersion: 4
@@ -622,7 +624,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 902617303}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c0eaf4c45d8aa734285f17f804fb56b8, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
