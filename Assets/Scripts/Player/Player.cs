@@ -43,10 +43,26 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     public float groundLength = 0.6f;
     public Vector3 colliderOffset;
+    public Collider2D player;
+    public Collider2D floor;
 
 
 
+    private void OnCollision2D(Collision collision)
+    {
+        if (collision.transform.CompareTag("Floor"))
+        {
+            if(direction.x != 0)
+            {
+                rb.AddForce(Vector2.right * direction.x * Mathf.Abs(horizontalMomentum), ForceMode2D.Impulse);
+            }
+        }
+    }
 
+    private void Start()
+    {
+       
+    }
 
     private void Update()
     {
@@ -177,8 +193,8 @@ public class Player : MonoBehaviour
            
                 if (Keyboard.current.aKey.isPressed || Keyboard.current.dKey.isPressed)
                 {
-                    rb.AddForce(Vector2.right * direction.x * Mathf.Abs(horizontalMomentum));
-                }
+                rb.AddForce(Vector2.right * direction.x * Mathf.Abs(horizontalMomentum));
+            }
             horizontalMomentum = rb.velocity.x;
 
         }
